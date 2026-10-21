@@ -5,6 +5,9 @@
     {"id": "Qwen/Qwen3-Embedding-0.6B", "params_b": 0.6, "layers": 28, "dimension": 1024, "mrl": "32-1024", "context": 32768, "languages": "100+", "instruction_aware": true, "license": "Apache-2.0", "role": "轻量"},
     {"id": "BAAI/bge-m3", "params_b": 0.57, "layers": 24, "dimension": 1024, "mrl": null, "context": 8192, "languages": "100+", "instruction_aware": false, "license": "MIT", "role": "对照/混合检索"},
     {"id": "BAAI/bge-large-zh-v1.5", "params_b": 0.33, "layers": 24, "dimension": 1024, "mrl": null, "context": 512, "languages": "中英", "instruction_aware": true, "license": "MIT", "role": "轻量对照"},
+    {"id": "BAAI/bge-base-zh-v1.5", "params_b": 0.10, "layers": 12, "dimension": 768, "mrl": null, "context": 512, "languages": "中英", "instruction_aware": true, "license": "MIT", "role": "资源受限对照"},
+    {"id": "BAAI/bge-large-en-v1.5", "params_b": 0.34, "layers": 24, "dimension": 1024, "mrl": null, "context": 512, "languages": "英", "instruction_aware": true, "license": "MIT", "role": "英文对照"},
+    {"id": "BAAI/bge-base-en-v1.5", "params_b": 0.11, "layers": 12, "dimension": 768, "mrl": null, "context": 512, "languages": "英", "instruction_aware": true, "license": "MIT", "role": "英文轻量对照"},
     {"id": "BAAI/bge-multilingual-gemma2", "params_b": 9.24, "layers": null, "dimension": 3584, "mrl": null, "context": 8192, "languages": "多语言", "instruction_aware": true, "license": "Gemma(商用需审阅)", "role": "参考"},
     {"id": "BAAI/bge-code-v1", "params_b": 1.54, "layers": 28, "dimension": 1536, "mrl": null, "context": 32768, "languages": "20种编程语言+中英", "instruction_aware": true, "license": "Apache-2.0", "role": "代码场景参考"}
   ],
@@ -12,6 +15,8 @@
     {"id": "Qwen/Qwen3-Reranker-8B", "params_b": 8, "layers": 36, "context": 32768, "scoring": "yes/no token 概率", "instruction_aware": true, "license": "Apache-2.0", "role": "主力(中文最强)"},
     {"id": "Qwen/Qwen3-Reranker-4B", "params_b": 4, "layers": 36, "context": 32768, "scoring": "yes/no token 概率", "instruction_aware": true, "license": "Apache-2.0", "role": "均衡(MTEB-R/FollowIR 超 8B)"},
     {"id": "Qwen/Qwen3-Reranker-0.6B", "params_b": 0.6, "layers": 28, "context": 32768, "scoring": "yes/no token 概率", "instruction_aware": true, "license": "Apache-2.0", "role": "轻量"},
-    {"id": "BAAI/bge-reranker-v2-m3", "params_b": 0.57, "layers": 24, "context": 8192, "scoring": "cross-encoder 单 logit", "instruction_aware": false, "license": "Apache-2.0", "role": "对照"}
+    {"id": "BAAI/bge-reranker-v2-m3", "params_b": 0.57, "layers": 24, "context": 8192, "scoring": "cross-encoder 单 logit", "instruction_aware": false, "license": "Apache-2.0", "role": "对照"},
+    {"id": "BAAI/bge-reranker-large", "params_b": 0.56, "layers": 24, "context": 512, "scoring": "cross-encoder 单 logit", "instruction_aware": false, "license": "MIT(以模型卡为准)", "role": "经典对照"},
+    {"id": "BAAI/bge-reranker-base", "params_b": 0.28, "layers": 12, "context": 512, "scoring": "cross-encoder 单 logit", "instruction_aware": false, "license": "MIT(以模型卡为准)", "role": "经典轻量对照"}
   ]
 }

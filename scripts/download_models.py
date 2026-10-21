@@ -28,6 +28,11 @@ MODEL_SETS = {
     "bge-m3": "BAAI/bge-m3",
     "bge-reranker-v2-m3": "BAAI/bge-reranker-v2-m3",
     "bge-large-zh-v1.5": "BAAI/bge-large-zh-v1.5",
+    "bge-base-zh-v1.5": "BAAI/bge-base-zh-v1.5",
+    "bge-large-en-v1.5": "BAAI/bge-large-en-v1.5",
+    "bge-base-en-v1.5": "BAAI/bge-base-en-v1.5",
+    "bge-reranker-large": "BAAI/bge-reranker-large",
+    "bge-reranker-base": "BAAI/bge-reranker-base",
 }
 
 RECOMMENDED = [

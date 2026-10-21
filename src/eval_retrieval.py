@@ -1,15 +1,15 @@
-"""检索(召回)评估:embedding 全库编码 → 余弦相似度 top-k → 指标计算 + 性能统计。"""
+"""检索(召回)评估:embedding 全库编码 → 余弦相似度 top-k → 指标计算 + 分层指标 + 性能统计。"""
 
 from __future__ import annotations
 
 import time
-from typing import Dict, Iterable, List
+from typing import Any, Dict, Iterable, List, Optional
 
 import numpy as np
 
 from .backends.base import EmbeddingBackend
 from .data_loader import Corpus, Queries, doc_full_text
-from .metrics import Qrels, evaluate_all
+from .metrics import Qrels, evaluate_all, per_query_metrics
 
 
 def _batched(items: List[str], n: int) -> Iterable[List[str]]:
@@ -23,6 +23,27 @@ def _l2_normalize(mat: np.ndarray) -> np.ndarray:
     return mat / norms
 
 
+def compute_by_category(
+    qrels: Qrels,
+    results: Dict[str, List[str]],
+    labels: Optional[Dict[str, Dict[str, Any]]],
+    k_values: Iterable[int],
+) -> Dict[str, Dict]:
+    """按查询标签 category 分层计算指标(防止总分掩盖关键类别缺陷)"""
+    if not labels:
+        return {}
+    groups: Dict[str, Qrels] = {}
+    for qid in qrels:
+        category = labels.get(qid, {}).get("category")
+        if category:
+            groups.setdefault(str(category), {})[qid] = qrels[qid]
+    by_category: Dict[str, Dict] = {}
+    for category, sub_qrels in sorted(groups.items()):
+        if any(r > 0 for qr in sub_qrels.values() for r in qr.values()):
+            by_category[category] = evaluate_all(sub_qrels, results, k_values)
+    return by_category
+
+
 def run_retrieval_eval(
     backend: EmbeddingBackend,
     corpus: Corpus,
@@ -31,8 +52,9 @@ def run_retrieval_eval(
     k_values: Iterable[int] = (1, 3, 5, 10),
     batch_size: int = 32,
     top_k: int = 100,
+    labels: Optional[Dict[str, Dict[str, Any]]] = None,
 ) -> Dict:
-    """返回 {"metrics":..., "performance":..., "results": {qid: [doc_id,...]}}"""
+    """返回 {"metrics","by_category","per_query","performance","results"}"""
     doc_ids = list(corpus.keys())
     doc_texts = [doc_full_text(corpus[d]) for d in doc_ids]
 
@@ -71,4 +93,10 @@ def run_retrieval_eval(
         "vector_dim": int(doc_mat.shape[1]),
         "top_k": eff_k,
     }
-    return {"metrics": metrics, "performance": performance, "results": results}
+    return {
+        "metrics": metrics,
+        "by_category": compute_by_category(qrels, results, labels, k_values),
+        "per_query": per_query_metrics(qrels, results, k_values),
+        "performance": performance,
+        "results": results,
+    }

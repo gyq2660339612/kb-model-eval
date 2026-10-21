@@ -8,5 +8,16 @@
     "hit_rate@5": 0.85,
     "ndcg@10": 0.6,
     "mrr@10": 0.7
-  }
+  },
+  "category_gates": {
+    "exact_match": {"hit_rate@1": 0.95},
+    "numeric_constraint": {"hit_rate@1": 0.9}
+  },
+  "composite_score": [
+    {"name": "检索质量", "weight": 0.35, "metric": "recall@10", "source": "retrieval"},
+    {"name": "重排收益", "weight": 0.25, "metric": "ndcg@10", "source": "rerank_after"},
+    {"name": "排序质量", "weight": 0.15, "metric": "ndcg@10", "source": "retrieval"},
+    {"name": "首结果质量", "weight": 0.10, "metric": "mrr@10", "source": "rerank_after"},
+    {"name": "命中率", "weight": 0.15, "metric": "hit_rate@5", "source": "retrieval"}
+  ]
 }
