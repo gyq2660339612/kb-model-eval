@@ -1,0 +1,18 @@
+# 评测代码核心依赖(内网最小集)
+numpy>=1.24
+requests>=2.31
+
+# ---- 可选后端(按需安装)----
+# sentence-transformers 本地推理后端
+# sentence-transformers>=2.7.0
+# torch>=2.2
+
+# ---- 模型下载(联网机/边界机)----
+# modelscope>=1.20
+# huggingface_hub[cli]>=0.24
+
+# ---- 官方基准复现(可选,体积大)----
+# mteb>=1.36
+# beir>=2.0
+# ranx>=0.3
+# pytrec_eval_terrier

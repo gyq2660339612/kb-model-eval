@@ -1,0 +1,21 @@
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.env
+.env.*
+
+# 模型权重与离线包(不入库)
+models/
+wheels/
+*.gguf
+*.safetensors
+
+# 评测输出
+results/
+*.log
+
+# 系统
+.DS_Store
+Thumbs.db
